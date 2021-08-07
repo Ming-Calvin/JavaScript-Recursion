@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+<script>
+  $.ajax({
+    type: 'get',
+    url: '03.json',
+    dataType: 'json',
+    success:function (data) {
+      console.log(data);  // {name: "总数据", children: Array(1)}
+      console.log(getLeafCountTree(data));  // 7
+    },
+    error:function () {
+      console.log('失败')
+    }
+  })
+
+  var x = {};
+
+  console.log(!x.x); // true   x.x -> undefined
+  // ！可将变量转换成boolean类型
+  // null、undefined和空字符串取反都为true其余都为false
+
+  function getLeafCountTree(json) {
+    if (!json.children) return 1;
+    // ！可将变量转换成boolean类型，null、undefined和空字符串取反都为true其余都为false
+    var leafCount = 0;
+    for (let i = 0 ; i < json.children.length ; i ++ ) {
+      leafCount = leafCount + getLeafCountTree(json.children[i])
+    }
+    return leafCount;
+  }
+
+  // 阶乘
+  function factorial (n) {
+    if ( n == 1 ) return 1 ;
+    return n * factorial( n - 1 );
+  }
+
+  console.log(factorial(8)) // 40320
+
+
+</script>
+</body>
+</html>
